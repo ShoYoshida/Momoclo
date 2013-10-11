@@ -1,0 +1,35 @@
+﻿body {
+}
+
+/*
+* jQuery UI datepicker
+*/
+input.grid-datepicker 
+{
+    border: 1px solid #CFCFCF;
+	background: #fff url(img/cal.png) right no-repeat;
+}
+
+/*
+* jQuery UI selectable
+*/
+#selectable .ui-selecting { 
+  background: #8A2BE2; 
+  color: #FFFFFF;   
+} 
+
+#selectable .ui-selected { 
+    background: #FF00FF; 
+    color: #FFFFFF; 
+} 
+	
+#selectable { 
+	list-style-type: none; 
+	margin: 0; 
+	padding: 0; 
+} 
+	
+#selectable li { 
+	margin: 3px; 
+	padding: 5px; 
+} 
