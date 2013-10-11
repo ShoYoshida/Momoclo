@@ -1,35 +1,24 @@
 ﻿
 $(function () {
 
-    //    var pp;
     $('button').button({
         icons: {
             primary: "ui-icon-check"
         }
-        //text: false
     }).click(function () {
 
-        //        var ids = $('#momoclo').jqGrid('getDataIDs');
+//        $.ajax({
+//            type: "POST",
+//            url: "/MomocloHandler.ashx",
+//            success: function (responseData) {
 
-        //        var data;
-        //        for (var i = 0; i < ids.length; i++) {
-        //            data = $('#momoclo').jqGrid('getRowData', ids[i]);
-        //            alert(data.color + ':' + data.name);
-        //        }
+//                console.log(responseData);
+//                var json_res = $.parseJSON(responseData);
+//                console.log(json_res);
 
-
-        $.ajax({
-            type: "POST",
-            url: "/MomocloHandler.ashx",
-            success: function (responseData) {
-
-                console.log(responseData);
-                var json_res = $.parseJSON(responseData);
-                console.log(json_res);
-
-                $("#momoclo")[0].addJSONData(json_res);
-            }
-        });
+//                $("#momoclo")[0].addJSONData(json_res);
+//            }
+//        });
 
     });
 
@@ -51,19 +40,22 @@ $(function () {
         editurl: "/MomocloHandler.ashx",
         datatype: function (postData) {
 
+            console.log(postData);
+            $.each(postData, function (k, v) {
+                console.log(k + ":" + v);
+            });
+
             $.ajax({
                 type: "POST",
                 url: "/MomocloHandler.ashx",
                 success: function (responseData) {
-                    console.log("data:" + responseData);                   
+                    console.log("data:" + responseData);
                     var json_res = $.parseJSON(responseData);
                     console.log("JSON:" + json_res);
 
                     $("#momoclo")[0].addJSONData(json_res);
                 }
             });
-
-            console.log('throw');
         },
 
         width: 600,
@@ -75,11 +67,12 @@ $(function () {
         pgbuttons: false,
         pginput: false,
         viewrecords: true,
-        colNames: ['色', '名前', '誕生日', '血液型', '出身地', '身長'],
+        colNames: ['id','色', '名前', '誕生日', '血液型', '出身地', '身長'],
         colModel: [
+                    { 'name': 'id', 'width': 30, 'editable': false, 'hidden': false },
                     { 'name': 'color', 'width': 80, 'editable': true },
                     { 'name': 'name', 'width': 130, 'editable': true },
-        //datepickerを表示する
+                    //datepickerを表示する
                     {'name': 'birth',
                     'width': 90,
                     'editable': true,
@@ -91,7 +84,24 @@ $(function () {
                     { 'name': 'birthplace', 'width': 80, 'editable': false },
                     { 'name': 'height', 'width': 50, 'editable': false }
         ],
-        caption: 'ももクロ'
+        caption: 'ももクロ',
+        serializeRowData: function (data) {
+            console.log(data);
+            $.each(data,function(k,v){
+                console.log(k + ":" + v);
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "/MomocloHandler.ashx",
+                data: data,
+                success: function (responseData) {
+                    console.log("data:" + responseData);
+
+                }
+            });
+
+        },
     });
     $('#momoclo').jqGrid('navGrid', '#pager', { edit: false, add: false, del: true, search: true });
     $('#momoclo').jqGrid('inlineNav', '#pager', {

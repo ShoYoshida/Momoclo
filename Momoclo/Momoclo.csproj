@@ -38,6 +38,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -182,6 +185,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="MomocloEDM.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MomocloEDM.edmx</DependentUpon>
+    </Compile>
     <Compile Include="MomocloGrid.aspx.cs">
       <DependentUpon>MomocloGrid.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -210,6 +218,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MomocloHandler.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="MomocloEDM.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MomocloEDM.Designer.cs</LastGenOutput>
+    </EntityDeploy>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
