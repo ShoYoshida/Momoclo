@@ -12,24 +12,14 @@ $(function () {
 
 
     $("#momoclo").jqGrid({
-        //data: data,
-        //datatype: "local",
         editurl: "/Service/MomocloHandler.ashx",
         datatype: function (postData) {
-
-            console.log(postData);
-            $.each(postData, function (k, v) {
-                console.log(k + ":" + v);
-            });
-
             $.ajax({
                 type: "POST",
                 url: "/Service/MomocloHandler.ashx",
                 success: function (responseData) {
-                    console.log("data:" + responseData);
                     var json_res = $.parseJSON(responseData);
-                    console.log("JSON:" + json_res);
-
+                    console.log("response:" + responseData);
                     $("#momoclo")[0].addJSONData(json_res);
                 }
             });
@@ -56,21 +46,19 @@ $(function () {
                     { 'name': 'id', 'index': 'id', 'width': 30, 'editable': true, 'hidden': true },
                     { 'name': 'color', 'width': 80, 'editable': true },
                     { 'name': 'name', 'width': 130, 'editable': true },
-                    //datepickerを表示する
-                    {'name': 'birth',
-                    'width': 90,
-                    'editable': true,
-                    'datefmt': "yyyy/mm/dd",
-                    editrules: { date: true },
-                    'title': false
-                },
+                    { 'name': 'birth', //datepickerを表示する
+                        'width': 90,
+                        'editable': true,
+                        'datefmt': "yyyy/mm/dd",
+                        'editrules': { date: true },
+                        'title': false
+                    },
                     { 'name': 'bloodtype', 'width': 50, 'editable': true, 'edittype': "select", 'editoptions': { value: ":;0:A;1:B;2:AB;3:O" }, 'title': false },
                     { 'name': 'birthplace', 'width': 80, 'editable': true },
                     { 'name': 'height', 'width': 50, 'editable': true }
         ],
         caption: 'ももクロ',
         serializeRowData: function (data) {
-            console.log("ID:" + data.id);
             $.each(data, function (k, v) {
                 console.log(k + ":" + v);
             });
@@ -78,7 +66,7 @@ $(function () {
             return data;
         }
     });
-    $('#momoclo').jqGrid('navGrid', '#pager', { edit: false, add: false, del: true, search: true });
+    $('#momoclo').jqGrid('navGrid', '#pager', { edit: false, add: false, del: true, search: false });
     $('#momoclo').jqGrid('inlineNav', '#pager', {
         edit: true,
         editicon: "ui-icon-pencil",
@@ -90,8 +78,15 @@ $(function () {
         cancelicon: "ui-icon-cancel",
         editParams: { oneditfunc: onEdit },
         addParams: {
-            "rowID": 0,
-            "addRowParams": { oneditfunc: onEdit }
+            "rowID": 0, //初期値
+            "addRowParams": {
+                oneditfunc: onEdit,
+                successfunc: function (response) {
+                    $('#momoclo').trigger("reloadGrid"); //リロード
+
+                    return true;
+                }                
+            }
         }
     }
     );

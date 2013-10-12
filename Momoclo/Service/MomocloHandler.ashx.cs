@@ -61,7 +61,13 @@ namespace Momoclo.Service
                 req.height = context.Request.Form["height"];
                 req.oper = context.Request.Form["oper"];
 
-
+                System.Diagnostics.Debug.WriteLine("id:" + req.id);
+                System.Diagnostics.Debug.WriteLine("color:" + req.color);
+                System.Diagnostics.Debug.WriteLine("name:" + req.name);
+                System.Diagnostics.Debug.WriteLine("birth:" + req.birth);
+                System.Diagnostics.Debug.WriteLine("bloodtype:" + req.bloodtype);
+                System.Diagnostics.Debug.WriteLine("birthplace:" + req.birthplace);
+                System.Diagnostics.Debug.WriteLine("height:" + req.height);
                 System.Diagnostics.Debug.WriteLine(req.oper);
 
             }
@@ -70,22 +76,18 @@ namespace Momoclo.Service
             {
                 case ADD:
                     Save();
-                    Load();
                     break;
                 case EDIT:
                     Save();
-                    Load();
                     break;
                 case DEL:
                     Remove();
                     break;
                 default:
-
+                    Load();
                     break;
             }
-
-            Load();
-
+          
         }
 
         private void Load()

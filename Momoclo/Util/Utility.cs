@@ -11,7 +11,7 @@ namespace Momoclo.Util
 
         public static double? NullorValue(string s)
         {
-            if (s == null)
+            if (string.IsNullOrEmpty(s))
             {
                 return null;
             }

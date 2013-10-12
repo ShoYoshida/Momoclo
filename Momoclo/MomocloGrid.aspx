@@ -16,7 +16,7 @@
     <script src="/Scripts/Momoclo/MomocloGrid.js" type="text/javascript"></script>
 </head>
 <body>
-    <form id="form1" runat="server" onsubmit="return false;">
+    <form id="form1" runat="server" >
     <div>
       <button>SAVE</button>
       <br />
