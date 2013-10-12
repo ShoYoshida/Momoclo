@@ -41,6 +41,7 @@
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -78,6 +79,7 @@
     <Content Include="CSS\smoothness\jquery-ui-1.10.3.custom.css" />
     <Content Include="CSS\smoothness\jquery-ui-1.10.3.custom.min.css" />
     <Content Include="CSS\ui.jqgrid.css" />
+    <Content Include="MomocloEDM.edmx.sql" />
     <Content Include="MomocloGrid.aspx" />
     <Content Include="Scripts\i18n\grid.locale-ar.js" />
     <Content Include="Scripts\i18n\grid.locale-bg.js" />
@@ -175,6 +177,8 @@
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Common\DBUtil.cs" />
+    <Compile Include="DAO\MomocloDAO.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -197,7 +201,7 @@
     <Compile Include="MomocloGrid.aspx.designer.cs">
       <DependentUpon>MomocloGrid.aspx</DependentUpon>
     </Compile>
-    <Compile Include="MomocloHandler.ashx.cs">
+    <Compile Include="Service\MomocloHandler.ashx.cs">
       <DependentUpon>MomocloHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -208,6 +212,8 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
+    <Compile Include="Util\Utility.cs" />
+    <Compile Include="View\MemberView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -217,7 +223,7 @@
     <Content Include="Site.Master" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MomocloHandler.ashx" />
+    <Content Include="Service\MomocloHandler.ashx" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="MomocloEDM.edmx">

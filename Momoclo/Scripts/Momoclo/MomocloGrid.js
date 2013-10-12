@@ -7,18 +7,18 @@ $(function () {
         }
     }).click(function () {
 
-//        $.ajax({
-//            type: "POST",
-//            url: "/MomocloHandler.ashx",
-//            success: function (responseData) {
+        //        $.ajax({
+        //            type: "POST",
+        //            url: "/MomocloHandler.ashx",
+        //            success: function (responseData) {
 
-//                console.log(responseData);
-//                var json_res = $.parseJSON(responseData);
-//                console.log(json_res);
+        //                console.log(responseData);
+        //                var json_res = $.parseJSON(responseData);
+        //                console.log(json_res);
 
-//                $("#momoclo")[0].addJSONData(json_res);
-//            }
-//        });
+        //                $("#momoclo")[0].addJSONData(json_res);
+        //            }
+        //        });
 
     });
 
@@ -37,7 +37,7 @@ $(function () {
     $("#momoclo").jqGrid({
         //data: data,
         //datatype: "local",
-        editurl: "/MomocloHandler.ashx",
+        editurl: "/Service/MomocloHandler.ashx",
         datatype: function (postData) {
 
             console.log(postData);
@@ -47,7 +47,7 @@ $(function () {
 
             $.ajax({
                 type: "POST",
-                url: "/MomocloHandler.ashx",
+                url: "/Service/MomocloHandler.ashx",
                 success: function (responseData) {
                     console.log("data:" + responseData);
                     var json_res = $.parseJSON(responseData);
@@ -57,7 +57,14 @@ $(function () {
                 }
             });
         },
-
+        jsonReader: {
+            page: "page",
+            total: "total",
+            records: "records",
+            root: "data",
+            repeatitems: false,
+            id: "id"
+        },
         width: 600,
         height: '100%',
         rownumbers: true,
@@ -67,9 +74,9 @@ $(function () {
         pgbuttons: false,
         pginput: false,
         viewrecords: true,
-        colNames: ['id','色', '名前', '誕生日', '血液型', '出身地', '身長'],
+        colNames: ['id', '色', '名前', '誕生日', '血液型', '出身地', '身長'],
         colModel: [
-                    { 'name': 'id', 'width': 30, 'editable': false, 'hidden': false },
+                    { 'name': 'id', 'index': 'id', 'width': 30, 'editable': true, 'hidden': true },
                     { 'name': 'color', 'width': 80, 'editable': true },
                     { 'name': 'name', 'width': 130, 'editable': true },
                     //datepickerを表示する
@@ -81,27 +88,18 @@ $(function () {
                     'title': false
                 },
                     { 'name': 'bloodtype', 'width': 50, 'editable': true, 'edittype': "select", 'editoptions': { value: ":;0:A;1:B;2:AB;3:O" }, 'title': false },
-                    { 'name': 'birthplace', 'width': 80, 'editable': false },
-                    { 'name': 'height', 'width': 50, 'editable': false }
+                    { 'name': 'birthplace', 'width': 80, 'editable': true },
+                    { 'name': 'height', 'width': 50, 'editable': true }
         ],
         caption: 'ももクロ',
         serializeRowData: function (data) {
-            console.log(data);
-            $.each(data,function(k,v){
+            console.log("ID:" + data.id);
+            $.each(data, function (k, v) {
                 console.log(k + ":" + v);
             });
 
-            $.ajax({
-                type: "POST",
-                url: "/MomocloHandler.ashx",
-                data: data,
-                success: function (responseData) {
-                    console.log("data:" + responseData);
-
-                }
-            });
-
-        },
+            return data;
+        }
     });
     $('#momoclo').jqGrid('navGrid', '#pager', { edit: false, add: false, del: true, search: true });
     $('#momoclo').jqGrid('inlineNav', '#pager', {
@@ -114,7 +112,10 @@ $(function () {
         cancel: true,
         cancelicon: "ui-icon-cancel",
         editParams: { oneditfunc: onEdit },
-        addParams: { addRowParams: { oneditfunc: onEdit} }
+        addParams: {
+            "rowID": 0,
+            "addRowParams": { oneditfunc: onEdit }
+        }
     }
     );
     $("#momoclo").jqGrid('navButtonAdd', "#pager", {

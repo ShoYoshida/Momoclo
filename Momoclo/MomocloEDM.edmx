@@ -4,11 +4,23 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl" Namespace="MomocloEDM.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
-        <EntityContainer Name="MomocloEDMTargetContainer" >
-        </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+    <Schema Namespace="MomocloEDM.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="MomocloEDMStoreContainer">
+    <EntitySet Name="Members" EntityType="MomocloEDM.Store.Members" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="Members">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Color" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="Birth" Type="varchar" Nullable="true" MaxLength="10" />
+    <Property Name="Bloodtype" Type="varchar" Nullable="true" MaxLength="2" />
+    <Property Name="Birthplace" Type="varchar" Nullable="true" MaxLength="20" />
+    <Property Name="Height" Type="float" Nullable="true" />
+  </EntityType>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="MomocloEDM" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
@@ -20,24 +32,34 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Color" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" />
-          <Property Type="String" Name="Birth" Nullable="false" />
-          <Property Type="String" Name="bloodtype" Nullable="false" />
-          <Property Type="String" Name="birthplace" Nullable="false" />
-          <Property Type="String" Name="height" Nullable="false" />
+          <Property Type="String" Name="Color" Nullable="false" MaxLength="20" Unicode="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="20" Unicode="false" />
+          <Property Type="String" Name="Birth" Nullable="true" MaxLength="10" Unicode="false" />
+          <Property Type="String" Name="Bloodtype" Nullable="true" MaxLength="2" Unicode="false" />
+          <Property Type="String" Name="Birthplace" Nullable="true" MaxLength="20" Unicode="false" />
+          <Property Type="Double" Name="Height" Nullable="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs" Space="C-S">
-        <Alias Key="Model" Value="MomocloEDM" />
-        <Alias Key="Target" Value="MomocloEDM.Store" />
-        <EntityContainerMapping CdmEntityContainer="MomocloEDMContainer" StorageEntityContainer="MomocloEDMTargetContainer">
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MomocloEDMStoreContainer" CdmEntityContainer="MomocloEDMContainer">
+    <EntitySetMapping Name="Members">
+      <EntityTypeMapping TypeName="IsTypeOf(MomocloEDM.Member)">
+        <MappingFragment StoreEntitySet="Members">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Birth" ColumnName="Birth" />
+          <ScalarProperty Name="Bloodtype" ColumnName="Bloodtype" />
+          <ScalarProperty Name="Birthplace" ColumnName="Birthplace" />
+          <ScalarProperty Name="Height" ColumnName="Height" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">

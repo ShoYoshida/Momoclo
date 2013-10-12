@@ -116,20 +116,12 @@ namespace Momoclo
         /// <param name="id">ID プロパティの初期値。</param>
         /// <param name="color">Color プロパティの初期値。</param>
         /// <param name="name">Name プロパティの初期値。</param>
-        /// <param name="birth">Birth プロパティの初期値。</param>
-        /// <param name="bloodtype">bloodtype プロパティの初期値。</param>
-        /// <param name="birthplace">birthplace プロパティの初期値。</param>
-        /// <param name="height">height プロパティの初期値。</param>
-        public static Member CreateMember(global::System.Int32 id, global::System.String color, global::System.String name, global::System.String birth, global::System.String bloodtype, global::System.String birthplace, global::System.String height)
+        public static Member CreateMember(global::System.Int32 id, global::System.String color, global::System.String name)
         {
             Member member = new Member();
             member.ID = id;
             member.Color = color;
             member.Name = name;
-            member.Birth = birth;
-            member.bloodtype = bloodtype;
-            member.birthplace = birthplace;
-            member.height = height;
             return member;
         }
 
@@ -214,7 +206,7 @@ namespace Momoclo
         /// <summary>
         /// 使用できるメタデータ ドキュメントはありません。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String Birth
         {
@@ -226,7 +218,7 @@ namespace Momoclo
             {
                 OnBirthChanging(value);
                 ReportPropertyChanging("Birth");
-                _Birth = StructuralObject.SetValidValue(value, false);
+                _Birth = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("Birth");
                 OnBirthChanged();
             }
@@ -238,74 +230,74 @@ namespace Momoclo
         /// <summary>
         /// 使用できるメタデータ ドキュメントはありません。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String bloodtype
+        public global::System.String Bloodtype
         {
             get
             {
-                return _bloodtype;
+                return _Bloodtype;
             }
             set
             {
-                OnbloodtypeChanging(value);
-                ReportPropertyChanging("bloodtype");
-                _bloodtype = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("bloodtype");
-                OnbloodtypeChanged();
+                OnBloodtypeChanging(value);
+                ReportPropertyChanging("Bloodtype");
+                _Bloodtype = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Bloodtype");
+                OnBloodtypeChanged();
             }
         }
-        private global::System.String _bloodtype;
-        partial void OnbloodtypeChanging(global::System.String value);
-        partial void OnbloodtypeChanged();
+        private global::System.String _Bloodtype;
+        partial void OnBloodtypeChanging(global::System.String value);
+        partial void OnBloodtypeChanged();
     
         /// <summary>
         /// 使用できるメタデータ ドキュメントはありません。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String birthplace
+        public global::System.String Birthplace
         {
             get
             {
-                return _birthplace;
+                return _Birthplace;
             }
             set
             {
-                OnbirthplaceChanging(value);
-                ReportPropertyChanging("birthplace");
-                _birthplace = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("birthplace");
-                OnbirthplaceChanged();
+                OnBirthplaceChanging(value);
+                ReportPropertyChanging("Birthplace");
+                _Birthplace = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Birthplace");
+                OnBirthplaceChanged();
             }
         }
-        private global::System.String _birthplace;
-        partial void OnbirthplaceChanging(global::System.String value);
-        partial void OnbirthplaceChanged();
+        private global::System.String _Birthplace;
+        partial void OnBirthplaceChanging(global::System.String value);
+        partial void OnBirthplaceChanged();
     
         /// <summary>
         /// 使用できるメタデータ ドキュメントはありません。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String height
+        public Nullable<global::System.Double> Height
         {
             get
             {
-                return _height;
+                return _Height;
             }
             set
             {
-                OnheightChanging(value);
-                ReportPropertyChanging("height");
-                _height = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("height");
-                OnheightChanged();
+                OnHeightChanging(value);
+                ReportPropertyChanging("Height");
+                _Height = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Height");
+                OnHeightChanged();
             }
         }
-        private global::System.String _height;
-        partial void OnheightChanging(global::System.String value);
-        partial void OnheightChanged();
+        private Nullable<global::System.Double> _Height;
+        partial void OnHeightChanging(Nullable<global::System.Double> value);
+        partial void OnHeightChanged();
 
         #endregion
     
