@@ -73,22 +73,18 @@ namespace Momoclo.Service
                     Load();
                     break;
                 case EDIT:
-
+                    Save();
+                    Load();
                     break;
                 case DEL:
-
+                    Remove();
                     break;
                 default:
-                    Load();
+
                     break;
             }
 
-
-
-
-
-
-
+            Load();
 
         }
 
@@ -123,6 +119,18 @@ namespace Momoclo.Service
             }
         }
 
+        private void Remove()
+        {
+            using (TransactionScope transaction = new TransactionScope())
+            {
+                MomocloDAO dao = new MomocloDAO();
+                dao.Remove(req);
+                transaction.Complete();
+            }
+        }
+
+
+
         public bool IsReusable
         {
             get
@@ -132,15 +140,5 @@ namespace Momoclo.Service
         }
     }
 
-    //public class Member
-    //{
-    //    public string color { get; set; }
-    //    public string name { get; set; }
 
-    //    public Member(string color, string name)
-    //    {
-    //        this.color = color;
-    //        this.name = name;
-    //    }
-    //}
 }

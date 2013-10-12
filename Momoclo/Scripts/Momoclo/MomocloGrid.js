@@ -7,31 +7,8 @@ $(function () {
         }
     }).click(function () {
 
-        //        $.ajax({
-        //            type: "POST",
-        //            url: "/MomocloHandler.ashx",
-        //            success: function (responseData) {
-
-        //                console.log(responseData);
-        //                var json_res = $.parseJSON(responseData);
-        //                console.log(json_res);
-
-        //                $("#momoclo")[0].addJSONData(json_res);
-        //            }
-        //        });
 
     });
-
-    //    var data = [
-    //        { "color": "Green", "name": "有安杏果" },
-    //        { "color": "Pink", "name": "佐々木彩夏" },
-    //        { "color": "Red", "name": "百田夏菜子" },
-    //        { "color": "Yellow", "name": "玉井詩織" },
-    //        { "color": "Purple", "name": "高城れに" }
-    //    ];
-
-
-
 
 
     $("#momoclo").jqGrid({

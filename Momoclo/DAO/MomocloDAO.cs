@@ -38,18 +38,53 @@ namespace Momoclo.DAO
 
         public void Save(MomocloRequest req)
         {
-            Member member = new Member();
-            member.Color = req.color;
-            member.Name = req.name;
-            member.Birth = req.birth;
-            member.Bloodtype = req.bloodtype;
-            member.Birthplace = req.birthplace;
-            member.Height = Utility.NullorValue(req.height);
 
-            this.MContainer.Members.AddObject(member);
+            if (req.id > 0)
+            {
+                var rs = from mem in this.MContainer.Members
+                         where mem.ID == req.id
+                         select mem;
+
+                Member oldRec = rs.Single();
+
+                oldRec.Color = req.color;
+                oldRec.Name = req.name;
+                oldRec.Birth = req.birth;
+                oldRec.Bloodtype = req.bloodtype;
+                oldRec.Birthplace = req.birthplace;
+                oldRec.Height = Utility.NullorValue(req.height);
+            }
+            else 
+            {
+                Member member = new Member();
+                member.Color = req.color;
+                member.Name = req.name;
+                member.Birth = req.birth;
+                member.Bloodtype = req.bloodtype;
+                member.Birthplace = req.birthplace;
+                member.Height = Utility.NullorValue(req.height);
+
+                this.MContainer.Members.AddObject(member);            
+            }
+
             this.MContainer.SaveChanges();
 
         }
+
+        public void Remove(MomocloRequest req)
+        {
+            var rs = from mem in this.MContainer.Members
+                     where mem.ID == req.id
+                     select mem;
+
+            this.MContainer.Members.DeleteObject(rs.Single());
+
+            this.MContainer.SaveChanges();
+      
+        }
+
+
+
 
         private string getBloodtype(string s) 
         {
