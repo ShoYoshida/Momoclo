@@ -33,7 +33,27 @@
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
                     <Items>
                         <asp:MenuItem NavigateUrl="~/Default.aspx" Text="ホーム"/>
-                        <asp:MenuItem NavigateUrl="~/About.aspx" Text="このサイトについて"/>
+                        <asp:MenuItem Text="パソコン・オフィス用品" Value="パソコン・オフィス用品">
+                            <asp:MenuItem Text="パソコン" Value="パソコン"></asp:MenuItem>
+                            <asp:MenuItem Text="パソコン周辺機器" Value="パソコン周辺機器"></asp:MenuItem>
+                            <asp:MenuItem Text="PCアクセサリ・サプライ" Value="PCアクセサリ・サプライ"></asp:MenuItem>
+                            <asp:MenuItem Text="PCパーツ" Value="PCパーツ"></asp:MenuItem>
+                        </asp:MenuItem>
+                        <asp:MenuItem Text="ホーム&amp;キッチン・ペット" Value="ホーム&amp;キッチン・ペット">
+                            <asp:MenuItem Text="キッチン用品" Value="キッチン用品"></asp:MenuItem>
+                            <asp:MenuItem Text="インテリア・家具・寝具" Value="インテリア・家具・寝具"></asp:MenuItem>
+                            <asp:MenuItem Text="生活雑貨" Value="生活雑貨"></asp:MenuItem>
+                        </asp:MenuItem>
+                        <asp:MenuItem Text="食品&amp;飲料" Value="食品&amp;飲料">
+                            <asp:MenuItem Text="食品" Value="食品"></asp:MenuItem>
+                            <asp:MenuItem Text="スイーツ・お菓子" Value="スイーツ・お菓子"></asp:MenuItem>
+                            <asp:MenuItem Text="ドリンク" Value="ドリンク"></asp:MenuItem>
+                        </asp:MenuItem>
+                        <asp:MenuItem Text="本・コミック・雑誌" Value="本・コミック・雑誌">
+                            <asp:MenuItem Text="本" Value="本"></asp:MenuItem>
+                            <asp:MenuItem Text="コミック" Value="コミック"></asp:MenuItem>
+                            <asp:MenuItem Text="雑誌" Value="雑誌"></asp:MenuItem>
+                        </asp:MenuItem>
                     </Items>
                 </asp:Menu>
             </div>

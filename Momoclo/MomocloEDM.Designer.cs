@@ -16,6 +16,11 @@ using System.Xml.Serialization;
 using System.Runtime.Serialization;
 
 [assembly: EdmSchemaAttribute()]
+#region EDM リレーションシップのメタデータ
+
+[assembly: EdmRelationshipAttribute("MomocloEDM", "FK_GroupMember", "Group", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Momoclo.Group), "Member", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Momoclo.Member), true)]
+
+#endregion
 
 namespace Momoclo
 {
@@ -80,6 +85,22 @@ namespace Momoclo
             }
         }
         private ObjectSet<Member> _Members;
+    
+        /// <summary>
+        /// 使用できるメタデータ ドキュメントはありません。
+        /// </summary>
+        public ObjectSet<Group> Groups
+        {
+            get
+            {
+                if ((_Groups == null))
+                {
+                    _Groups = base.CreateObjectSet<Group>("Groups");
+                }
+                return _Groups;
+            }
+        }
+        private ObjectSet<Group> _Groups;
 
         #endregion
         #region AddTo メソッド
@@ -91,6 +112,14 @@ namespace Momoclo
         {
             base.AddObject("Members", member);
         }
+    
+        /// <summary>
+        /// Groups EntitySet に新しいオブジェクトを追加するための非推奨のメソッドです。代わりに、関連付けられている ObjectSet&lt;T&gt; プロパティの .Add メソッドを使用してください。
+        /// </summary>
+        public void AddToGroups(Group group)
+        {
+            base.AddObject("Groups", group);
+        }
 
         #endregion
     }
@@ -99,6 +128,138 @@ namespace Momoclo
     #endregion
     
     #region エンティティ
+    
+    /// <summary>
+    /// 使用できるメタデータ ドキュメントはありません。
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="MomocloEDM", Name="Group")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Group : EntityObject
+    {
+        #region ファクトリ メソッド
+    
+        /// <summary>
+        /// 新しい Group オブジェクトを作成します。
+        /// </summary>
+        /// <param name="id">ID プロパティの初期値。</param>
+        /// <param name="groupName">GroupName プロパティの初期値。</param>
+        /// <param name="numOfMembers">NumOfMembers プロパティの初期値。</param>
+        public static Group CreateGroup(global::System.Int32 id, global::System.String groupName, global::System.Int32 numOfMembers)
+        {
+            Group group = new Group();
+            group.ID = id;
+            group.GroupName = groupName;
+            group.NumOfMembers = numOfMembers;
+            return group;
+        }
+
+        #endregion
+        #region プリミティブ プロパティ
+    
+        /// <summary>
+        /// 使用できるメタデータ ドキュメントはありません。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// 使用できるメタデータ ドキュメントはありません。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String GroupName
+        {
+            get
+            {
+                return _GroupName;
+            }
+            set
+            {
+                OnGroupNameChanging(value);
+                ReportPropertyChanging("GroupName");
+                _GroupName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("GroupName");
+                OnGroupNameChanged();
+            }
+        }
+        private global::System.String _GroupName;
+        partial void OnGroupNameChanging(global::System.String value);
+        partial void OnGroupNameChanged();
+    
+        /// <summary>
+        /// 使用できるメタデータ ドキュメントはありません。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 NumOfMembers
+        {
+            get
+            {
+                return _NumOfMembers;
+            }
+            set
+            {
+                OnNumOfMembersChanging(value);
+                ReportPropertyChanging("NumOfMembers");
+                _NumOfMembers = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NumOfMembers");
+                OnNumOfMembersChanged();
+            }
+        }
+        private global::System.Int32 _NumOfMembers;
+        partial void OnNumOfMembersChanging(global::System.Int32 value);
+        partial void OnNumOfMembersChanged();
+
+        #endregion
+    
+        #region ナビゲーション プロパティ
+    
+        /// <summary>
+        /// 使用できるメタデータ ドキュメントはありません。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("MomocloEDM", "FK_GroupMember", "Member")]
+        public EntityCollection<Member> Members
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Member>("MomocloEDM.FK_GroupMember", "Member");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Member>("MomocloEDM.FK_GroupMember", "Member", value);
+                }
+            }
+        }
+
+        #endregion
+    }
     
     /// <summary>
     /// 使用できるメタデータ ドキュメントはありません。
@@ -116,12 +277,14 @@ namespace Momoclo
         /// <param name="id">ID プロパティの初期値。</param>
         /// <param name="color">Color プロパティの初期値。</param>
         /// <param name="name">Name プロパティの初期値。</param>
-        public static Member CreateMember(global::System.Int32 id, global::System.String color, global::System.String name)
+        /// <param name="groupCode">GroupCode プロパティの初期値。</param>
+        public static Member CreateMember(global::System.Int32 id, global::System.String color, global::System.String name, global::System.Int32 groupCode)
         {
             Member member = new Member();
             member.ID = id;
             member.Color = color;
             member.Name = name;
+            member.GroupCode = groupCode;
             return member;
         }
 
@@ -298,9 +461,74 @@ namespace Momoclo
         private Nullable<global::System.Double> _Height;
         partial void OnHeightChanging(Nullable<global::System.Double> value);
         partial void OnHeightChanged();
+    
+        /// <summary>
+        /// 使用できるメタデータ ドキュメントはありません。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 GroupCode
+        {
+            get
+            {
+                return _GroupCode;
+            }
+            set
+            {
+                OnGroupCodeChanging(value);
+                ReportPropertyChanging("GroupCode");
+                _GroupCode = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("GroupCode");
+                OnGroupCodeChanged();
+            }
+        }
+        private global::System.Int32 _GroupCode;
+        partial void OnGroupCodeChanging(global::System.Int32 value);
+        partial void OnGroupCodeChanged();
 
         #endregion
     
+        #region ナビゲーション プロパティ
+    
+        /// <summary>
+        /// 使用できるメタデータ ドキュメントはありません。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("MomocloEDM", "FK_GroupMember", "Group")]
+        public Group Group
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Group>("MomocloEDM.FK_GroupMember", "Group").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Group>("MomocloEDM.FK_GroupMember", "Group").Value = value;
+            }
+        }
+        /// <summary>
+        /// 使用できるメタデータ ドキュメントはありません。
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Group> GroupReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Group>("MomocloEDM.FK_GroupMember", "Group");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Group>("MomocloEDM.FK_GroupMember", "Group", value);
+                }
+            }
+        }
+
+        #endregion
     }
 
     #endregion
